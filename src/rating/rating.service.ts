@@ -1,8 +1,8 @@
+import { MovieService } from '@movie/movie.service'
 import { Injectable } from '@nestjs/common'
 import { ModelType } from '@typegoose/typegoose/lib/types'
 import { Types } from 'mongoose'
 import { InjectModel } from 'nestjs-typegoose'
-import { MovieService } from 'src/movie/movie.service'
 import { SetRatingDto } from './dto/set-rating.dto'
 import { RatingModel } from './rating.model'
 
