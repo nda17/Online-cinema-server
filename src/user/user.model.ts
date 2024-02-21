@@ -1,6 +1,6 @@
+import { MovieModel } from '@movie/movie.model'
 import { Ref, prop } from '@typegoose/typegoose'
 import { Base, TimeStamps } from '@typegoose/typegoose/lib/defaultClasses'
-import { MovieModel } from 'src/movie/movie.model'
 // eslint-disable-next-line
 export interface UserModel extends Base {}
 // eslint-disable-next-line

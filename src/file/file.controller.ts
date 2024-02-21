@@ -1,3 +1,4 @@
+import { Auth } from '@auth/decorators/auth.decorator'
 import {
 	Controller,
 	HttpCode,
@@ -7,7 +8,6 @@ import {
 	UseInterceptors
 } from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express'
-import { Auth } from 'src/auth/decorators/auth.decorator'
 import { FileService } from './file.service'
 
 @Controller('files')

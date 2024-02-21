@@ -9,10 +9,10 @@ import {
 	ValidationPipe
 } from '@nestjs/common'
 
+import { Auth } from '@auth/decorators/Auth.decorator'
+import { IdValidationPipe } from '@pipes/id.validation.pipe'
+import { User } from '@user/decorators/user.decorator'
 import { Types } from 'mongoose'
-import { Auth } from 'src/auth/decorators/Auth.decorator'
-import { IdValidationPipe } from 'src/pipes/id.validation.pipe'
-import { User } from 'src/user/decorators/user.decorator'
 import { SetRatingDto } from './dto/set-rating.dto'
 import { RatingService } from './rating.service'
 

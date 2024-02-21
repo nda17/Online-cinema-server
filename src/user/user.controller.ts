@@ -1,3 +1,4 @@
+import { Auth } from '@auth/decorators/auth.decorator'
 import {
 	Body,
 	Controller,
@@ -10,9 +11,8 @@ import {
 	UsePipes,
 	ValidationPipe
 } from '@nestjs/common'
+import { IdValidationPipe } from '@pipes/id.validation.pipe'
 import { Types } from 'mongoose'
-import { Auth } from 'src/auth/decorators/auth.decorator'
-import { IdValidationPipe } from 'src/pipes/id.validation.pipe'
 import { User } from './decorators/user.decorator'
 import { UpdateUserDto } from './dto/update-user.dto'
 import { UserModel } from './user.model'

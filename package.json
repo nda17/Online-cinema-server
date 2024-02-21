@@ -1,7 +1,7 @@
 {
-	"name": "online-cinema",
+	"name": "online-cinema-server",
 	"version": "1.0",
-	"description": "Online cinema application",
+	"description": "Online cinema app",
 	"private": true,
 	"license": "UNLICENSED",
 	"scripts": {
