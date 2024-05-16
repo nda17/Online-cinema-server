@@ -96,7 +96,9 @@ export class AuthService {
 		return {
 			_id: user._id,
 			email: user.email,
-			isAdmin: user.isAdmin
+			password: user.password,
+			isAdmin: user.isAdmin,
+			isSubscription: user.isSubscription
 		}
 	}
 }
