@@ -19,6 +19,34 @@ export class UserService {
 		return user
 	}
 
+	async adminUpdateProfile(_id: string, dto: UpdateUserDto) {
+		const user = await this.UserModel.findById(_id)
+		const isSameUser = await this.UserModel.findOne({ email: dto.email })
+
+		if (isSameUser && String(_id) !== String(isSameUser._id)) {
+			throw new NotFoundException('Email busy')
+		}
+
+		if (user) {
+			user.email = dto.email
+
+			if (dto.password) {
+				const salt = await genSalt(10)
+				user.password = await hash(dto.password, salt)
+			}
+
+			if (dto.isAdmin || dto.isAdmin === false) user.isAdmin = dto.isAdmin
+
+			if (dto.isSubscription || dto.isSubscription === false)
+				user.isSubscription = dto.isSubscription
+
+			await user.save()
+			return
+		}
+
+		throw new NotFoundException('User not found')
+	}
+
 	async updateProfile(_id: string, dto: UpdateUserDto) {
 		const user = await this.UserModel.findById(_id)
 		const isSameUser = await this.UserModel.findOne({ email: dto.email })
@@ -28,11 +56,13 @@ export class UserService {
 		}
 
 		if (user) {
+			user.email = dto.email
+
 			if (dto.password) {
 				const salt = await genSalt(10)
 				user.password = await hash(dto.password, salt)
 			}
-			user.email = dto.email
+
 			if (dto.isAdmin || dto.isAdmin === false) user.isAdmin = dto.isAdmin
 
 			await user.save()
