@@ -56,10 +56,10 @@ export class GenreService {
 
 				const result: ICollection = {
 					_id: String(genre._id),
-					image: moviesByGenre[0].bigPoster,
+					image: moviesByGenre[0]?.bigPoster,
 					slug: genre.slug,
 					title: genre.name
-				}
+				} 
 
 				return result
 			})
