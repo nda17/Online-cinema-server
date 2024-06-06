@@ -8,8 +8,10 @@ import { ModelType } from '@typegoose/typegoose/lib/types'
 import { UserModel } from '@user/user.model'
 import { compare, genSalt, hash } from 'bcryptjs'
 import { InjectModel } from 'nestjs-typegoose'
+import { v4 as uuidv4 } from 'uuid'
 import { AuthDto } from './dto/auth.dto'
 import { RefreshTokenDto } from './dto/refreshToken.dto'
+import sendMail from './useMail'
 
 @Injectable()
 export class AuthService {
@@ -53,12 +55,19 @@ export class AuthService {
 
 		const salt = await genSalt(10)
 
+		const activationKey = uuidv4()
+
 		const newUser = new this.UserModel({
 			email: dto.email,
-			password: await hash(dto.password, salt)
+			password: await hash(dto.password, salt),
+			activationKey
 		})
 
 		const user = await newUser.save()
+
+		const userId = String(user._id)
+
+		sendMail(userId, activationKey, dto.email)
 
 		const tokens = await this.issueTokenPair(String(user._id))
 
@@ -97,6 +106,8 @@ export class AuthService {
 			_id: user._id,
 			email: user.email,
 			password: user.password,
+			activationKey: user.activationKey,
+			isActivated: user.isActivated,
 			isAdmin: user.isAdmin,
 			isSubscription: user.isSubscription
 		}
