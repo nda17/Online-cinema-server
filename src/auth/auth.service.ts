@@ -1,17 +1,20 @@
 import {
 	BadRequestException,
 	Injectable,
+	NotFoundException,
 	UnauthorizedException
 } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { ModelType } from '@typegoose/typegoose/lib/types'
+import { UpdateUserDto } from '@user/dto/update-user.dto'
 import { UserModel } from '@user/user.model'
 import { compare, genSalt, hash } from 'bcryptjs'
+import generator from 'generate-password-ts'
 import { InjectModel } from 'nestjs-typegoose'
 import { v4 as uuidv4 } from 'uuid'
+import sendMail from '../nodemailer/useMail'
 import { AuthDto } from './dto/auth.dto'
 import { RefreshTokenDto } from './dto/refreshToken.dto'
-import sendMail from './useMail'
 
 @Injectable()
 export class AuthService {
@@ -19,6 +22,33 @@ export class AuthService {
 		@InjectModel(UserModel) private readonly UserModel: ModelType<UserModel>,
 		private readonly jwtService: JwtService
 	) {}
+
+	async restorePassword(dto: UpdateUserDto) {
+		const user = await this.UserModel.findOne({ email: dto.email })
+
+		if (user) {
+			const newPassword = generator.generate({
+				length: 6,
+				uppercase: true,
+				lowercase: true,
+				numbers: true,
+				strict: true
+			})
+
+			const salt = await genSalt(10)
+			user.password = await hash(newPassword, salt)
+			await user.save()
+
+			const textSubject = 'Online-cinema recovering your password'
+			const textTitle = `<h2>Your temporary password: <span style="color: #FF2400">${newPassword}</span> , please change your password after logging in.</h2>`
+			const textLink = `<a href="${process.env.NODE_ENV === 'production' ? process.env.PRODUCTION_HOST : process.env.DEV_HOST}/auth">Link to login page</a>`
+			sendMail(textSubject, textTitle, textLink, dto.email)
+
+			return
+		}
+
+		throw new NotFoundException('User not found')
+	}
 
 	async login(dto: AuthDto) {
 		const user = await this.validateUser(dto)
@@ -67,7 +97,11 @@ export class AuthService {
 
 		const userId = String(user._id)
 
-		sendMail(userId, activationKey, dto.email)
+		const textSubject = 'Online-Cinema Email confirmation'
+		const textTitle =
+			'<h2>Someone created an Online-Cinema account with this E-mail. If it was you, click on the link to confirm your email:</h2>'
+		const textLink = `<a href="${process.env.NODE_ENV === 'production' ? process.env.PRODUCTION_HOST : process.env.DEV_HOST}/auth/confirmation-email/${userId}/${activationKey}">Email confirmation link</a>`
+		sendMail(textSubject, textTitle, textLink, dto.email)
 
 		const tokens = await this.issueTokenPair(String(user._id))
 
