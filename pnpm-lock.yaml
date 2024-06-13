@@ -53,6 +53,9 @@ importers:
       fs-extra:
         specifier: ^11.1.1
         version: 11.2.0
+      generate-password-ts:
+        specifier: ^1.6.5
+        version: 1.6.5
       mongoose:
         specifier: ^7.6.3
         version: 7.6.3
@@ -1687,6 +1690,9 @@ packages:
   function-bind@1.1.2:
     resolution: {integrity: sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==}
 
+  generate-password-ts@1.6.5:
+    resolution: {integrity: sha512-MTvcuBZWQChMlqRVK3PGBmF/QdYkSL3YuTfoxbLy8GExa+VDkB0vybQhXBiT0TsBLvDvTC+7OIT1ptsYFpXpGA==}
+
   gensync@1.0.0-beta.2:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
     engines: {node: '>=6.9.0'}
@@ -2068,6 +2074,12 @@ packages:
     peerDependenciesMeta:
       node-notifier:
         optional: true
+
+  js-crypto-env@1.0.5:
+    resolution: {integrity: sha512-8/UNN3sG8J+yMzqwSNVaobaWhIz4MqZFoOg5OB0DFXqS8eFjj2YvdmLJqIWXPl57Yw10SvYx0DQOtkfsWIV9Aw==}
+
+  js-crypto-random@1.0.4:
+    resolution: {integrity: sha512-ldTK4y+ymaXWFL13EUh+Kvl3/UQ2GdfqDbI4ScNYS0/T2knijM9duOXO8qd9e6RYwdrOupyiAu4o538VQnktuw==}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -5181,6 +5193,10 @@ snapshots:
 
   function-bind@1.1.2: {}
 
+  generate-password-ts@1.6.5:
+    dependencies:
+      js-crypto-random: 1.0.4
+
   gensync@1.0.0-beta.2: {}
 
   get-caller-file@2.0.5: {}
@@ -5759,6 +5775,12 @@ snapshots:
       - babel-plugin-macros
       - supports-color
       - ts-node
+
+  js-crypto-env@1.0.5: {}
+
+  js-crypto-random@1.0.4:
+    dependencies:
+      js-crypto-env: 1.0.5
 
   js-tokens@4.0.0: {}
 
