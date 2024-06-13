@@ -1,8 +1,9 @@
 import * as nodemailer from 'nodemailer'
 
 const sendMail = async (
-	userId: string,
-	activationKey: string,
+	textSubject: string,
+	textTitle: string,
+	textLink: string,
 	email: string
 ) => {
 	const transporter = nodemailer.createTransport({
@@ -18,12 +19,12 @@ const sendMail = async (
 	const mailOptions = {
 		from: 'registrator0156@gmail.com',
 		to: email,
-		subject: 'Online-Cinema Email confirmation',
+		subject: textSubject,
 		text: '',
 		html: `
-            <h2>Someone created an Online-Cinema account with this E-mail. If it was you, click on the link to confirm your email:</h2>
+            ${textTitle}
             <br/>
-            <a href="http://localhost:3100/auth/confirmation-email/${userId}/${activationKey}">Email confirmation link</a>
+			${textLink}
         `
 	}
 
