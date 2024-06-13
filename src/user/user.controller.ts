@@ -79,7 +79,7 @@ export class UserController {
 	}
 
 	@UsePipes(new ValidationPipe())
-	@Patch('/confirmation-email/:id')
+	@Patch('confirmation-email/:id')
 	@HttpCode(200)
 	async updateUserStatusConfirmationEmail(
 		@Param('id', IdValidationPipe) id: string
