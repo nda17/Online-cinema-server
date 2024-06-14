@@ -6,7 +6,6 @@ import {
 	Get,
 	HttpCode,
 	Param,
-	Patch,
 	Put,
 	Query,
 	UsePipes,
@@ -69,22 +68,6 @@ export class UserController {
 	@Auth('admin')
 	async getUser(@Param('id', IdValidationPipe) id: string) {
 		return this.userService.byId(id)
-	}
-
-	@Get('confirmation-email/:id')
-	async getUserStatusConfirmationEmail(
-		@Param('id', IdValidationPipe) id: string
-	) {
-		return this.userService.byIdStatusConfirmationEmail(id)
-	}
-
-	@UsePipes(new ValidationPipe())
-	@Patch('confirmation-email/:id')
-	@HttpCode(200)
-	async updateUserStatusConfirmationEmail(
-		@Param('id', IdValidationPipe) id: string
-	) {
-		return this.userService.updateStatusConfirmationEmail(id)
 	}
 
 	@UsePipes(new ValidationPipe())
