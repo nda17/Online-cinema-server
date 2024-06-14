@@ -19,26 +19,6 @@ export class UserService {
 		return user
 	}
 
-	async byIdStatusConfirmationEmail(_id: string) {
-		const user = await this.UserModel.findById(_id)
-		if (!user) throw new NotFoundException('User not found.')
-
-		return { email: user.email, isActivated: user.isActivated }
-	}
-
-	async updateStatusConfirmationEmail(_id: string) {
-		const user = await this.UserModel.findById(_id)
-
-		if (user && !user.isActivated) {
-			user.isActivated = true
-
-			await user.save()
-			return
-		}
-
-		throw new NotFoundException('Email confirmation error')
-	}
-
 	async adminUpdateProfile(_id: string, dto: UpdateUserDto) {
 		const user = await this.UserModel.findById(_id)
 		const isSameUser = await this.UserModel.findOne({ email: dto.email })
