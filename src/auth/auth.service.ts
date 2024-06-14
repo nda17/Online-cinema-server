@@ -23,6 +23,26 @@ export class AuthService {
 		private readonly jwtService: JwtService
 	) {}
 
+	async getStatusConfirmationEmail(_id: string) {
+		const user = await this.UserModel.findById(_id)
+		if (!user) throw new NotFoundException('User not found')
+
+		return { isActivated: user.isActivated }
+	}
+
+	async confirmationEmail(_id: string) {
+		const user = await this.UserModel.findById(_id)
+
+		if (user && !user.isActivated) {
+			user.isActivated = true
+
+			await user.save()
+			return
+		}
+
+		throw new NotFoundException('Email confirmation error')
+	}
+
 	async restorePassword(dto: UpdateUserDto) {
 		const user = await this.UserModel.findOne({ email: dto.email })
 
