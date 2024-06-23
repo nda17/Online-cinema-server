@@ -40,6 +40,7 @@ export class MovieService {
 		if (!doc) {
 			throw new NotFoundException('Movie not found.')
 		}
+
 		return doc
 	}
 
@@ -48,6 +49,7 @@ export class MovieService {
 		if (!docs) {
 			throw new NotFoundException('Movies not found.')
 		}
+
 		return docs
 	}
 
@@ -55,9 +57,11 @@ export class MovieService {
 		const docs = await this.MovieModel.find({
 			genres: { $in: genreIds }
 		}).exec()
+
 		if (!docs) {
 			throw new NotFoundException('Movies not found.')
 		}
+
 		return docs
 	}
 
@@ -99,7 +103,9 @@ export class MovieService {
 	//Admin place:
 	async byId(_id: string) {
 		const doc = await this.MovieModel.findById(_id)
-		if (!doc) throw new NotFoundException('Movie not found.')
+		if (!doc) {
+			throw new NotFoundException('Movie not found.')
+		}
 
 		return doc
 	}

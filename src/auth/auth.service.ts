@@ -25,7 +25,9 @@ export class AuthService {
 
 	async getStatusConfirmationEmail(_id: string) {
 		const user = await this.UserModel.findById(_id)
-		if (!user) throw new NotFoundException('User not found')
+		if (!user) {
+			throw new NotFoundException('User not found')
+		}
 
 		return { isActivated: user.isActivated }
 	}
@@ -81,10 +83,14 @@ export class AuthService {
 	}
 
 	async getNewTokens({ refreshToken }: RefreshTokenDto) {
-		if (!refreshToken) throw new UnauthorizedException('Please sign in.')
+		if (!refreshToken) {
+			throw new UnauthorizedException('Please sign in.')
+		}
 
 		const result = await this.jwtService.verifyAsync(refreshToken)
-		if (!result) throw new UnauthorizedException('Invalid token or expired.')
+		if (!result) {
+			throw new UnauthorizedException('Invalid token or expired.')
+		}
 
 		const user = await this.UserModel.findById(result._id)
 
@@ -98,10 +104,11 @@ export class AuthService {
 
 	async register(dto: AuthDto) {
 		const oldUser = await this.UserModel.findOne({ email: dto.email })
-		if (oldUser)
+		if (oldUser) {
 			throw new BadRequestException(
 				'The user is already registered in the system.'
 			)
+		}
 
 		const salt = await genSalt(10)
 
@@ -133,10 +140,14 @@ export class AuthService {
 
 	async validateUser(dto: AuthDto): Promise<UserModel> {
 		const user = await this.UserModel.findOne({ email: dto.email })
-		if (!user) throw new UnauthorizedException('User is not found!')
+		if (!user) {
+			throw new UnauthorizedException('User is not found!')
+		}
 
 		const isValidPassword = await compare(dto.password, user.password)
-		if (!isValidPassword) throw new UnauthorizedException('Incorrect password!')
+		if (!isValidPassword) {
+			throw new UnauthorizedException('Incorrect password!')
+		}
 
 		return user
 	}

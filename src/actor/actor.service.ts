@@ -62,7 +62,10 @@ export class ActorService {
 	//Admin place:
 	async byId(_id: string) {
 		const actor = await this.ActorModel.findById(_id)
-		if (!actor) throw new NotFoundException('Actor not found.')
+
+		if (!actor) {
+			throw new NotFoundException('Actor not found.')
+		}
 
 		return actor
 	}

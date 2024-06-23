@@ -14,7 +14,9 @@ export class UserService {
 
 	async byId(_id: string) {
 		const user = await this.UserModel.findById(_id)
-		if (!user) throw new NotFoundException('User not found.')
+		if (!user) {
+			throw new NotFoundException('User not found.')
+		}
 
 		return user
 	}
@@ -35,12 +37,16 @@ export class UserService {
 				user.password = await hash(dto.password, salt)
 			}
 
-			if (dto.isAdmin || dto.isAdmin === false) user.isAdmin = dto.isAdmin
+			if (dto.isAdmin || dto.isAdmin === false) {
+				user.isAdmin = dto.isAdmin
+			}
 
-			if (dto.isSubscription || dto.isSubscription === false)
+			if (dto.isSubscription || dto.isSubscription === false) {
 				user.isSubscription = dto.isSubscription
+			}
 
 			await user.save()
+
 			return
 		}
 
@@ -63,9 +69,12 @@ export class UserService {
 				user.password = await hash(dto.password, salt)
 			}
 
-			if (dto.isAdmin || dto.isAdmin === false) user.isAdmin = dto.isAdmin
+			if (dto.isAdmin || dto.isAdmin === false) {
+				user.isAdmin = dto.isAdmin
+			}
 
 			await user.save()
+
 			return
 		}
 
