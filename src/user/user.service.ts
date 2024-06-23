@@ -3,6 +3,8 @@ import { ModelType } from '@typegoose/typegoose/lib/types'
 import { genSalt, hash } from 'bcryptjs'
 import { Types } from 'mongoose'
 import { InjectModel } from 'nestjs-typegoose'
+import sendMail from 'src/nodemailer/useMail'
+import { v4 as uuidv4 } from 'uuid'
 import { UpdateUserDto } from './dto/update-user.dto'
 import { UserModel } from './user.model'
 
@@ -46,6 +48,29 @@ export class UserService {
 			}
 
 			await user.save()
+
+			return
+		}
+
+		throw new NotFoundException('User not found')
+	}
+
+	async resendingEmailConfirmationLink(email: string) {
+		const user = await this.UserModel.findOne({ email })
+
+		if (user) {
+			const newActivationKey = uuidv4()
+
+			user.activationKey = newActivationKey
+			await user.save()
+
+			const userId = String(user._id)
+
+			const textSubject = 'Online-Cinema REPEAT confirmation email'
+			const textTitle =
+				'<h2>Someone created an Online-Cinema account with this E-mail. If it was you, click on the link to confirm your email:</h2>'
+			const textLink = `<a href="${process.env.NODE_ENV === 'production' ? process.env.PRODUCTION_HOST : process.env.DEV_HOST}/auth/confirmation-email/${userId}/${newActivationKey}">Email confirmation link</a>`
+			sendMail(textSubject, textTitle, textLink, email)
 
 			return
 		}
