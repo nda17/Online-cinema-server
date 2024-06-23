@@ -6,6 +6,7 @@ import {
 	Get,
 	HttpCode,
 	Param,
+	Patch,
 	Put,
 	Query,
 	UsePipes,
@@ -26,6 +27,13 @@ export class UserController {
 	@Auth()
 	async getProfile(@User('_id') _id: string) {
 		return this.userService.byId(_id)
+	}
+
+	@Patch('profile/resending-email-confirmation-link')
+	@HttpCode(200)
+	@Auth()
+	async resendingEmailConfirmationLink(@User('email') email: string) {
+		return this.userService.resendingEmailConfirmationLink(email)
 	}
 
 	@UsePipes(new ValidationPipe())
