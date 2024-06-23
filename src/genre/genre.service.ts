@@ -18,6 +18,7 @@ export class GenreService {
 		if (!doc) {
 			throw new NotFoundException('Genre not found.')
 		}
+
 		return doc
 	}
 
@@ -59,7 +60,7 @@ export class GenreService {
 					image: moviesByGenre[0]?.bigPoster,
 					slug: genre.slug,
 					title: genre.name
-				} 
+				}
 
 				return result
 			})
@@ -70,7 +71,9 @@ export class GenreService {
 	//Admin place:
 	async byId(_id: string) {
 		const genre = await this.GenreModel.findById(_id)
-		if (!genre) throw new NotFoundException('Genre not found.')
+		if (!genre) {
+			throw new NotFoundException('Genre not found.')
+		}
 
 		return genre
 	}
