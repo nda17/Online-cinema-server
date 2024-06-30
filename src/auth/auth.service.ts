@@ -7,7 +7,7 @@ import {
 import { JwtService } from '@nestjs/jwt'
 import { ModelType } from '@typegoose/typegoose/lib/types'
 import { UpdateUserDto } from '@user/dto/update-user.dto'
-import { UserModel } from '@user/user.model'
+
 import { compare, genSalt, hash } from 'bcryptjs'
 import generator from 'generate-password-ts'
 import { InjectModel } from 'nestjs-typegoose'
@@ -23,13 +23,14 @@ export class AuthService {
 		private readonly jwtService: JwtService
 	) {}
 
-	async getStatusConfirmationEmail(_id: string) {
+	async getById(_id: string) {
 		const user = await this.UserModel.findById(_id)
+
 		if (!user) {
 			throw new NotFoundException('User not found')
 		}
 
-		return { isActivated: user.isActivated }
+		return user
 	}
 
 	async confirmationEmail(_id: string) {
