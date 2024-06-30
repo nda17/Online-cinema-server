@@ -7,8 +7,6 @@ import {
 	UsePipes,
 	ValidationPipe
 } from '@nestjs/common'
-//eslint-disable-next-line
-import { UserDto } from '@user/decorators/user.decorator'
 import { UpdateUserDto } from '@user/dto/update-user.dto'
 import { AuthService } from './auth.service'
 import { AuthDto } from './dto/auth.dto'
@@ -47,13 +45,13 @@ export class AuthController {
 
 	@Patch('confirmation-email/:id')
 	@HttpCode(200)
-	async confirmationEmail(@Body() dto: UserDto) {
-		return this.AuthService.confirmationEmail(dto)
+	async confirmationEmail(@Body() _id: string) {
+		return this.AuthService.confirmationEmail(_id)
 	}
 
 	@Post('confirmation-email/:id')
 	@HttpCode(200)
-	async getById(@Body() dto: UserDto) {
-		return this.AuthService.getById(dto)
+	async getById(@Body() _id: string) {
+		return this.AuthService.getById(_id)
 	}
 }
