@@ -1,16 +1,14 @@
 import {
 	Body,
 	Controller,
-	Get,
 	HttpCode,
-	Param,
 	Patch,
 	Post,
 	UsePipes,
 	ValidationPipe
 } from '@nestjs/common'
 //eslint-disable-next-line
-import { IdValidationPipe } from '@pipes/id.validation.pipe'
+import { UserDto } from '@user/decorators/user.decorator'
 import { UpdateUserDto } from '@user/dto/update-user.dto'
 import { AuthService } from './auth.service'
 import { AuthDto } from './dto/auth.dto'
@@ -27,35 +25,35 @@ export class AuthController {
 	}
 
 	@UsePipes(new ValidationPipe())
-	@HttpCode(200)
 	@Post('login')
+	@HttpCode(200)
 	async login(@Body() dto: AuthDto) {
 		return this.AuthService.login(dto)
 	}
 
 	@UsePipes(new ValidationPipe())
-	@HttpCode(200)
 	@Post('login/access-token')
+	@HttpCode(200)
 	async getNewTokens(@Body() dto: RefreshTokenDto) {
 		return this.AuthService.getNewTokens(dto)
 	}
 
 	@UsePipes(new ValidationPipe())
-	@HttpCode(200)
 	@Post('register')
+	@HttpCode(200)
 	async register(@Body() dto: AuthDto) {
 		return this.AuthService.register(dto)
 	}
 
-	@Get('confirmation-email/:id')
-	@HttpCode(200)
-	async getStatusConfirmationEmail(@Param('id', IdValidationPipe) id: string) {
-		return this.AuthService.getStatusConfirmationEmail(id)
-	}
-
 	@Patch('confirmation-email/:id')
 	@HttpCode(200)
-	async confirmationEmail(@Param('id', IdValidationPipe) id: string) {
-		return this.AuthService.confirmationEmail(id)
+	async confirmationEmail(@Body() dto: UserDto) {
+		return this.AuthService.confirmationEmail(dto)
+	}
+
+	@Post('confirmation-email/:id')
+	@HttpCode(200)
+	async getById(@Body() dto: UserDto) {
+		return this.AuthService.getById(dto)
 	}
 }
