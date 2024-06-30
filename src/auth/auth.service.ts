@@ -7,7 +7,7 @@ import {
 import { JwtService } from '@nestjs/jwt'
 import { ModelType } from '@typegoose/typegoose/lib/types'
 import { UpdateUserDto } from '@user/dto/update-user.dto'
-
+import { UserModel } from '@user/user.model'
 import { compare, genSalt, hash } from 'bcryptjs'
 import generator from 'generate-password-ts'
 import { InjectModel } from 'nestjs-typegoose'
