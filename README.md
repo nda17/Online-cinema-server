@@ -2,15 +2,11 @@
 
 # Functional:
 
-## User:
-- registering a new profile, authorization, editing profile data
-- content filtering (movie, genre, actors, rating)
-
-
-## Admin:
-- viewing, editing, deleting user profiles
-- downloading new files, setting content characteristics (movie, genre, actors, rating)
-
+- Processing requests and sending responses to the client side
+- Posting content 
+- Interaction with MongoDB database
+- Working with Access / Refresh JWT tokens
+- Generating and sending letters to the user’s email
 
 ## Used stack:
 - Nest js
