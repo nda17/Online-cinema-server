@@ -14,13 +14,11 @@
 - TypeScript
 
 ## Compiles and minifies for production:
-yarn build
-npm run build
-pnpm build
-bun build
+- yarn build
+- npm run build
+- pnpm build
 
 ## Getting started online development server:
-yarn dev
-npm run dev
-pnpm dev
-bun dev
+- yarn dev
+- npm run dev
+- pnpm dev
