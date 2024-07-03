@@ -9,9 +9,19 @@
 - Generating and sending letters to the user’s email
 
 ## Used stack:
-- Nest js
+- Typescript
+- Nest-js
+- JWT
+- Passport-JWT
 - MongoDb
-- TypeScript
+- Typegoose
+- UUID
+- Bcryptjs
+- Class-validator
+- Generate-password
+- Rxjs
+- Reflect-metadata
+- Fs-extra
 
 ## Compiles and minifies for production:
 - yarn build
