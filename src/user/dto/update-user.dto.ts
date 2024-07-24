@@ -7,6 +7,4 @@ export class UpdateUserDto {
 	password?: string
 
 	isAdmin?: boolean
-
-	isSubscription?: boolean
 }
