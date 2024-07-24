@@ -43,10 +43,6 @@ export class UserService {
 				user.isAdmin = dto.isAdmin
 			}
 
-			if (dto.isSubscription || dto.isSubscription === false) {
-				user.isSubscription = dto.isSubscription
-			}
-
 			await user.save()
 
 			return
