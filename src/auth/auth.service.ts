@@ -174,8 +174,7 @@ export class AuthService {
 			password: user.password,
 			activationKey: user.activationKey,
 			isActivated: user.isActivated,
-			isAdmin: user.isAdmin,
-			isSubscription: user.isSubscription
+			isAdmin: user.isAdmin
 		}
 	}
 }
