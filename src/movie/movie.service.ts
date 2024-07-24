@@ -112,7 +112,6 @@ export class MovieService {
 
 	async create() {
 		const defaultValue: UpdateMovieDto = {
-			license: '',
 			bigPoster: '',
 			actors: [],
 			genres: [],
