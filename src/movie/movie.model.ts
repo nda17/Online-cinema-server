@@ -19,9 +19,6 @@ export class Parameters {
 // eslint-disable-next-line
 export class MovieModel extends TimeStamps {
 	@prop()
-	license: string
-
-	@prop()
 	poster: string
 
 	@prop()

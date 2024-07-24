@@ -13,9 +13,6 @@ export class Parameters {
 
 export class UpdateMovieDto {
 	@IsString()
-	license: string
-
-	@IsString()
 	poster: string
 
 	@IsString()
