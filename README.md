@@ -31,13 +31,14 @@
 - PORT = 4200
 
 DEVELOPMENT mode or PRODUCTION mode (select one mode):
-- NODE_ENV = production 
+- NODE_ENV = production
 - NODE_ENV = development
 
 Host address in DEVELOPMENT mode or PRODUCTION mode:
 - DEV_HOST = 'http://localhost:3100'
 </br>
 - PRODUCTION_HOST = 'http://localhost:3100 /-or-/ https://YOUR-DOMAIN.COM'
+</br>
 
 Path to database MongoDB:
 - MONGO_URI = mongodb+srv://YOUR-DATABASE-PATH
