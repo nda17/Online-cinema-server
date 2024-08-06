@@ -30,11 +30,8 @@
 ## Adding personal settings to the .env environment variable:
 - PORT = 4200
 
-DEVELOPMENT mode or PRODUCTION mode:
+DEVELOPMENT mode or PRODUCTION mode (select one mode):
 - NODE_ENV = production
-</br>
-/-or-/
-</br>
 - NODE_ENV = development
 
 Host address in DEVELOPMENT mode or PRODUCTION mode:
