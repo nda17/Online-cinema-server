@@ -34,16 +34,22 @@ DEVELOPMENT mode or PRODUCTION mode (select one mode):
 - NODE_ENV = production
 - NODE_ENV = development
 
+---
+
 Host address in DEVELOPMENT mode or PRODUCTION mode:
 - DEV_HOST = 'http://localhost:3100'
-</br>
-- PRODUCTION_HOST = 'http://localhost:3100 /-or-/ https://YOUR-DOMAIN.COM'
-</br>
+- PRODUCTION_HOST = 'http://localhost:3100 (or https://YOUR-DOMAIN.COM')
+
+---
 
 Path to database MongoDB:
 - MONGO_URI = mongodb+srv://YOUR-DATABASE-PATH
 
+---
+
 - JWT_SECRET = 213^dsakjoi102 (any combination of letters and symbols)
+
+---
 
 Nodemailer:
 - SMTP_HOST = 'YOUR SETTINGS'
