@@ -1,15 +1,12 @@
 import { NestFactory } from '@nestjs/core'
 import 'colors'
 import { AppModule } from './app.module'
+import logger from './utils/log'
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule)
+	app.use(logger)
 	app.setGlobalPrefix('api')
-
-	if (process.env.NODE_ENV === 'development') {
-		app.use(require('morgan')('dev'))
-	}
-
 	app.enableCors({
 		origin: '*',
 		methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
